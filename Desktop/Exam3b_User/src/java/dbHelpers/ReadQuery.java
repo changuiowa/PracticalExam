@@ -14,25 +14,25 @@ import java.util.logging.Logger;
 import model.Customers;
 
 
-public class SearchQuery {
-
+public class ReadQuery {
+  
     private Connection conn;
     private ResultSet results;
     
+    public ReadQuery(){
     
-    public SearchQuery(){
-    
+        
         Properties props = new Properties();
         InputStream instr = getClass().getResourceAsStream("dbConn.properties");
         try {
             props.load(instr);
         } catch (IOException ex) {
-            Logger.getLogger(SearchQuery.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             instr.close();
         } catch (IOException ex) {
-            Logger.getLogger(SearchQuery.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         String driver = props.getProperty("driver.name");
@@ -43,41 +43,30 @@ public class SearchQuery {
         try {
             Class.forName(driver);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(SearchQuery.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
         try {
             conn = DriverManager.getConnection(url, username, passwd);
         } catch (SQLException ex) {
-            Logger.getLogger(SearchQuery.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    
-    
-    
-    
-    
-    }
-    
-    
-    public void doSearch(String firstName){
- 
-        try {
-            String query = "Select * from CUSTOMERS WHERE UPPER(firstName) LIKE ? ORDER BY custID ASC";
-            String query2 = "Select * from CUSTOMERS WHERE UPPER(lastName) LIKE ? ORDER BY custID ASC";
-            
-            PreparedStatement ps = conn.prepareStatement(query);
-            PreparedStatement ps2 = conn.prepareStatement(query2);
-            
-            ps.setString(1, "%" + firstName.toUpperCase() + "%");
-            ps2.setString(1, "%" + firstName.toUpperCase() + "%");
-            
-            this.results = ps.executeQuery();        
-        } catch (SQLException ex) {
-            Logger.getLogger(SearchQuery.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    
-    }
+        
 
+    }
+    
+    
+    public void doRead(){
+    
+        try {
+            String query = "Select * from CUSTOMERS ORDER BY custID ASC";
+            PreparedStatement ps = conn.prepareStatement(query);    
+            this.results = ps.executeQuery();
+        } catch (SQLException ex) {
+            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }            
+    
     public String getHTMLtable() {
         
         String table = "";
@@ -87,12 +76,6 @@ public class SearchQuery {
         try {
             while(this.results.next()){
                 
-                /*Products products = new Products();
-                products.setProductID(this.results.getInt("productID"));
-                products.setProductName(this.results.getString("productName"));
-                products.setPrice(this.results.getInt("price"));
-                products.setQuantity(this.results.getInt("quantity"));
-                products.setCompany(this.results.getString("company"));*/
                 Customers customers = new Customers();
                 customers.setCustID(this.results.getInt("custID"));
                 customers.setFirstName(this.results.getString("firstName"));
@@ -102,9 +85,15 @@ public class SearchQuery {
                 customers.setCity(this.results.getString("city"));
                 customers.setState(this.results.getString("state"));
                 customers.setZip(this.results.getString("zip"));
-                customers.setEmailAddr(this.results.getString("emailAddr")); 
+                customers.setEmailAddr(this.results.getString("emailAddr"));                
                 
-                                table += "<tr>";
+                
+                /*customers.setProductName(this.results.getString("productName"));
+                customers.setPrice(this.results.getInt("price"));
+                customers.setQuantity(this.results.getInt("quantity"));
+                customers.setCompany(this.results.getString("company"));
+                */
+                table += "<tr>";
                 
                 table += "<td>";
                 table += customers.getCustID();
@@ -148,39 +137,10 @@ public class SearchQuery {
                 
                 table += "</tr>";
                 
-                /*table += "<tr>";
-                
-                table += "<td>";
-                table += products.getProductID();
-                table += "</td>";
-                
-                table += "<td>";
-                table += products.getProductName();
-                table += "</td>";
-                
-                table += "<td>";
-                table += products.getPrice();
-                table += "</td>";
-                
-                table += "<td>";
-                table += products.getQuantity();
-                table += "</td>";
-                
-                table += "<td>";
-                table += products.getCompany();
-                table += "</td>";
-                
-                table += "<td>";
-                table += "<a href=update?productID=" + products.getProductID() + "> Update</a>" + " " +"<a href=delete?productID=" + products.getProductID() + "> Delete</a>";
-                table += "</td>";
-                
-                table += "</tr>";*/
-                
-                
                 
             }
         } catch (SQLException ex) {
-            Logger.getLogger(SearchQuery.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ReadQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
                
         
@@ -188,6 +148,7 @@ public class SearchQuery {
         
             return table;
     
-    }    
+    }
+    
     
 }
