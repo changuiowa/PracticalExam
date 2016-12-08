@@ -1,0 +1,143 @@
+body {
+    background-color: #DAE7D8;
+}
+
+.wrap {
+    text-align: center;
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid black;
+    margin-top: 25px;
+    
+}
+
+.headerImg {
+
+    float: left;
+    width: 200px;
+}
+
+.headerText {
+    text-align: center;
+    float: left;
+    height: 105px;
+    padding-top: 50px;
+    padding-left: 25px;
+}
+.header {
+    background-color: #22BF0A;
+    text-align: center;
+    padding: 25px;
+}
+
+.main {
+    background-color: #FFFFFF;
+    text-align: center;
+    padding: 30px;
+    margin-top: 30px;
+}
+
+.footer {
+    background-color: #B6B6B6;
+    text-align: center;
+    padding: 25px;    
+}
+
+table.list {
+    border-spacing: 1px;
+    border-collapse: seperate;
+    margin: 20px 10px;
+    width: 1100px;
+}
+
+input[readonly]{
+    background-color: gray;
+}
+
+
+
+table.list th {
+    color: #17202A;
+    background: #FFFF99;
+    padding: 10px;
+    vertical-align: top;
+
+}
+
+table.list td {
+    color: #17202A;
+    background: #FFFF99;
+    padding: 10px;
+    vertical-align: top;
+
+
+}
+
+table.add {
+    border-spacing: 1px;
+    border-collapse: seperate;
+    margin: 20px 10px;
+    width: 500px;
+    margin-left:auto; 
+    margin-right:auto;
+}
+
+table.add th {
+    color: #F08080;
+    background: #FFFF99;
+    padding: 10px;
+    vertical-align: top;
+
+}
+
+table.add td {
+    color: #17202A;
+    background: #E6F1F7;
+    padding: 10px;
+    vertical-align: top;
+
+}
+
+.navcontainer { margin-left: 30px;
+                text-align: left;
+                background-color: #22BF0A;
+                border: 1px solid black;               
+                float: left;
+                width: 98.2%;
+                margin: 0 auto;
+                padding: 10px;
+}
+
+.navlist
+{
+    list-style: none;
+    padding: 1px;
+    margin: 1px;
+}
+
+.navlist li
+{
+    display: inline;
+    padding: 1px;
+    margin: 1px;
+}
+
+.navlist li:before { content: "| "; }
+.navlist li:first-child:before { content: "  "; }
+
+
+* html #navlist li
+{
+    border-left: 1px solid black;
+    padding: 0 0.4em 0 0.4em;
+    margin: 0 0.4em 0 -0.4em;
+}
+
+/*Win IE browsers - hide from Mac IE\*/
+* html #navlist { height: 1%; }
+
+* html #navlist li
+{
+    display: block;
+    float: left;
+}
