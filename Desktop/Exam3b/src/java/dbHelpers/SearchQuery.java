@@ -70,7 +70,9 @@ public class SearchQuery {
             ps.setString(1, "%" + firstName.toUpperCase() + "%");
             ps2.setString(1, "%" + firstName.toUpperCase() + "%");
             
-            this.results = ps.executeQuery();        
+            this.results = ps.executeQuery();
+            this.results = ps2.executeQuery();
+            
         } catch (SQLException ex) {
             Logger.getLogger(SearchQuery.class.getName()).log(Level.SEVERE, null, ex);
         }
