@@ -90,7 +90,7 @@
 
                     </table>            
                     <input type="reset" value="Clear" id="clear"/>
-                    <input type="submit" value="Submit" value="update"/>
+                    <input type="submit" value="Submit" id="update"/>
 
             </div>    
 
